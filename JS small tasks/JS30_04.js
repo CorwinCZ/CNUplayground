@@ -51,7 +51,12 @@ console.log(5, inventors.sort(sortAge));
 
 // 7. sort Exercise
 // Sort the people alphabetically by last name
+console.log(7, people.sort((personA, personB) => personB - personA)); // not finished
 
 // 8. Reduce Exercise
 // Sum up the instances of each of these
 const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+const addObjCount = (item, obj)=> {if (!obj[item]) obj[item] = 1; else obj[item] += 1}
+let instances = {};
+data.map(instance => addObjCount(instance, instances));
+console.log(instances);
