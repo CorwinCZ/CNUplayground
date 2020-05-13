@@ -51,7 +51,12 @@ console.log(5, inventors.sort(sortAge));
 
 // 7. sort Exercise
 // Sort the people alphabetically by last name
-console.log(7, people.sort((personA, personB) => personB - personA)); // not finished
+const sortByName = (personA, personB) => {if (personA.last > personB.last) return 1; else return -1};
+const splitNameString = person => person.split(", ");
+const splitNameParts = name => ({last: name[0], first: name[1]});
+const sortedAndEditedPeople = people.map(splitNameString).map(splitNameParts).sort(sortByName);
+console.log(7, sortedAndEditedPeople);
+// console.log(7, people.sort((personA, personB) => personB - personA));
 
 // 8. Reduce Exercise
 // Sum up the instances of each of these
@@ -59,4 +64,4 @@ const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bik
 const addObjCount = (item, obj)=> {if (!obj[item]) obj[item] = 1; else obj[item] += 1}
 let instances = {};
 data.map(instance => addObjCount(instance, instances));
-console.log(instances);
+console.log(8, instances);
