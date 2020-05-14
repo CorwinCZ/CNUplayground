@@ -42,7 +42,7 @@ const sum = (acc, item) => acc + item;
 console.log(4, inventors.map(inventorAge).reduce(sum));
 
 // 5. Sort the inventors by years lived
-const sortAge = (inventorA, inventorB) => {if (inventorA.inventorAge > inventorB.inventorAge) return 1; else return -1};
+const sortAge = (inventorA, inventorB) => {if (inventorAge(inventorA) > inventorAge(inventorB)) return 1; else return -1};
 console.log(5, inventors.sort(sortAge));
 
 // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
