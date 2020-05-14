@@ -22,16 +22,47 @@
         .then((response) => response.json())
         .then((data) => responseData.push(...data));
 
-      const findCities = (word, cities) => {
+      const getFilteredCities = (searchInput, cities) => {
         return cities.filter((place) => {
-          const city = place.city.toLowerCase();
-          const state = place.state.toLowerCase();
-          const wordInLowercase = word.toLowerCase();
+          const { city, state } = place;
+          const cityInLowercase = city.toLowerCase();
+          const stateInLowercase = state.toLowerCase();
+          const searchInputInLower = searchInput.toLowerCase();
           return (
-            city.includes(wordInLowercase) || state.includes(wordInLowercase)
+            cityInLowercase.includes(searchInputInLower) ||
+            stateInLowercase.includes(searchInputInLower)
           );
         });
       };
+
+      const numberWithCommas = (num) => {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      };
+
+      const displayCities = (event) => {
+        const { value } = event.target;
+        const cities = getFilteredCities(value, responseData);
+
+        const cityItem = (location) => {
+          const { city, state, population } = location;
+          const item = `
+                <li>
+                    <span class="class="name">${city}, ${state}</span>
+                    <span class="population">${numberWithCommas(
+                      population
+                    )}</span>
+                </li>
+                `;
+          return item;
+        };
+
+        const htmlCities = cities.map(cityItem).join("");
+        suggestionsList.innerHTML = htmlCities;
+      };
+
+      const searchInput = document.querySelector(".search");
+      const suggestionsList = document.querySelector(".suggestions");
+      searchInput.addEventListener("input", displayCities);
     </script>
   </body>
 </html>
