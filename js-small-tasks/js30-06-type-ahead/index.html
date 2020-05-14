@@ -24,8 +24,8 @@
         .then(result => cities.push(...result));
 
     const findCitiesByInput = (input, dataToQuery) => {
-        return dataToQuery.filter(element => {
-            const regExp = new RegExp(input, 'gi');
+      const regExp = new RegExp(input, 'gi');
+      return dataToQuery.filter(element => {
             return element.city.match(regExp) || element.state.match(regExp);
         })
     };
