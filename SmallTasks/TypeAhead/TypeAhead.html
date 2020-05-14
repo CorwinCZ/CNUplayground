@@ -45,12 +45,11 @@
 
         const cityItem = (location) => {
           const { city, state, population } = location;
+          const populationNumber = numberWithCommas(population);
           const item = `
                 <li>
                     <span class="class="name">${city}, ${state}</span>
-                    <span class="population">${numberWithCommas(
-                      population
-                    )}</span>
+                    <span class="population">${populationNumber}</span>
                 </li>
                 `;
           return item;
