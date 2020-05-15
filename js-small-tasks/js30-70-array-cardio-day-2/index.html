@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Array Cardio 💪💪</title>
+</head>
+<body>
+  <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
+  <script>
+    // ## Array Cardio Day 2
+
+    const people = [
+      { name: 'Wes', year: 1988 },
+      { name: 'Kait', year: 1986 },
+      { name: 'Irv', year: 1970 },
+      { name: 'Lux', year: 2015 }
+    ];
+
+    const comments = [
+      { text: 'Love this!', id: 523423 },
+      { text: 'Super good', id: 823423 },
+      { text: 'You are the best', id: 2039842 },
+      { text: 'Ramen is my fav food ever', id: 123523 },
+      { text: 'Nice Nice Nice!', id: 542328 }
+    ];
+
+    // Some and Every Checks
+    // Array.prototype.some() // is at least one person 19 or older?
+
+    const checkIfSomeOlderThen = (inputData, value) => {
+      const currentYear = (new Date()).getFullYear();
+
+      return inputData.some(person => currentYear - person.year >= value);
+    };
+
+    console.log('--> LOG FOR: checkIfSomeOlderThen --> LOG VAL: ', checkIfSomeOlderThen(people, 19));
+
+    // Array.prototype.every() // is everyone 19 or older?
+
+    const checkIfEveryOlderThen = (inputData, value) => {
+      const currentYear = (new Date()).getFullYear();
+
+      return inputData.every(person => currentYear - person.year >= value);
+    };
+
+    console.log('--> LOG FOR: checkIfEveryOlderThen --> LOG VAL: ', checkIfEveryOlderThen(people, 19));
+
+    // Array.prototype.find()
+    // Find is like filter, but instead returns just the one you are looking for
+    // find the comment with the ID of 823423
+
+    const findCommentById = (inputData, id) => {
+      return inputData.find(comment => comment.id === id);
+    };
+
+    console.log('--> LOG FOR: findCommentById --> LOG VAL: ', findCommentById(comments, 123523));
+
+    // Array.prototype.findIndex()
+    // Find the comment with this ID
+
+    const findIndexOfComment = (inputData, id) => {
+      return inputData.findIndex(comment => comment.id === id);
+    };
+
+    console.log('--> LOG FOR: findIndexOfComment --> LOG VAL: ', findIndexOfComment(comments, 542328));
+
+    // delete the comment with the ID of 823423
+
+    const removeCommentByIndex = (inputData, id) => {
+      const indexToBeRemoved = findIndexOfComment(inputData, id);
+      const outputData = [...inputData];
+      outputData.splice(indexToBeRemoved, 1);
+      return outputData;
+    };
+
+    console.log('--> LOG FOR: removeCommentByIndex --> LOG VAL: ', removeCommentByIndex(comments, 823423));
+
+  </script>
+</body>
+</html>
