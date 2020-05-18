@@ -95,19 +95,24 @@
 
 <script>
 
-const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
-console.log(checkboxes)
+const checkboxes = [...document.querySelectorAll('.inbox input[type="checkbox"]')];
 
-let oldCheckedIndex = 1;
-let newCheckedIndex = undefined;
+let oldIndex;
 
 const handleClick = clickEvent => {
     const target = clickEvent.target;
-    newCheckedIndex = [...checkboxes].findIndex(checkbox => checkbox === target)
-    console.log(newCheckedIndex, oldCheckedIndex);
-    [...checkboxes].splice(oldCheckedIndex, newCheckedIndex - oldCheckedIndex).forEach(checkbox => checkbox.checked = target.checked)
+    const shiftKey = clickEvent.shiftKey;
+    const newIndex = checkboxes.findIndex(checkbox => checkbox === target);
 
-    oldCheckedIndex = newCheckedIndex;
+    if (shiftKey && oldIndex) {
+      const indexes = [oldIndex, newIndex].sort();
+      const indexRange = [indexes[0], indexes[1] - indexes[0]];
+      const changeChecked = checkbox => checkbox.checked = target.checked;
+      [...checkboxes].splice(...indexRange).forEach(changeChecked)
+    }
+    else {
+      oldIndex = newIndex;
+    }
 };
 
 checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleClick));
