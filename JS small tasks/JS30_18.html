@@ -184,9 +184,23 @@
 <script>
 
 const timeNodes = [...document.querySelectorAll('[data-time]')];
-const times = timeNodes.map(node => (node.dataset.time).split(":"))
+const sum = (acc, item) => acc + item;
+const multiplyer = [1, 60, 3600, 86400];
+const segmentsIntoSeconds = (time, index) => time * multiplyer[index];
+const videoTimeIntoSeconds = node => (node.dataset.time).split(":").reverse().map(segmentsIntoSeconds).reduce(sum);
+const times = timeNodes.map(videoTimeIntoSeconds);
+let totalTime = times.reduce(sum);
 
-console.log(times)
+
+//const days = Math.floor(totalTime / 86400);
+//totalTime = totalTime % 86400;
+const hours = Math.floor(totalTime / 3600);
+totalTime = totalTime % 3600;
+const minutes = Math.floor(totalTime / 60);
+totalTime = totalTime % 60;
+const seconds = totalTime;
+
+console.log(hours, minutes, seconds);
 
 </script>
 </body>
