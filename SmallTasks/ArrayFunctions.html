@@ -156,8 +156,12 @@
         typeof array[current] === "undefined"
           ? (array[current] = 1)
           : (array[current] += 1);
+        console.log(array[current]);
+        console.log(array);
         return array;
       }, {});
+
+      console.log(sumOfInstances);
     </script>
   </body>
 </html>

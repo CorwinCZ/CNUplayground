@@ -124,7 +124,7 @@
 
       const handleCheck = (event) => {
         const { target: currentCheckbox } = event;
-        const expectedCheckboxValue = currentCheckbox.checked;
+        const expectedCheckboxValue = currentCheckbox.checked || {};
 
         if (!lastChecked) {
           lastChecked = currentCheckbox;
@@ -141,7 +141,7 @@
           } else {
             checkboxes
               .slice(secondCheckboxIndex + 1, firstCheckboxIndex)
-              .map((checkbox) => (checkbox.checked = expectedCheckboxValue));
+              .map(({ checked }) => (checked = expectedCheckboxValue));
           }
         }
         lastChecked = currentCheckbox;
