@@ -1,4 +1,4 @@
-function KataTask(humanYears) { 
+function AnimalYears(humanYears) { 
     var catMltpl = 4,
         dogMltpl = 5;
     function countYears(humanYears, Mltpl) {
