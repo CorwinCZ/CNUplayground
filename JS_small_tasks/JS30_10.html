@@ -118,7 +118,11 @@ const func = (event) => {
 }
 
 const checkboxMagic = (firstClicked,secondClicked) => {
-
+    checkboxArray.map(( checkbox,index ) => {
+        if(index > firstClicked && index < secondClicked) {
+            checkbox.checked = true;
+        }
+    })
 }
 
 checkboxArray.forEach(item => item.addEventListener("click",func))
