@@ -100,32 +100,35 @@
 const divElements = document.querySelectorAll('.item input[type="checkbox"]')
 const checkboxArray = Array.from(divElements);
 
-let oldIndex = null;
+let lastIndex = null;
 
-const func = (event) => {
+const getCheckboxIndexes = (event) => {
     const newIndex = checkboxArray.findIndex(item => item === event.target) 
     const holdingShift = event.shiftKey;
     
-    if(holdingShift && oldIndex != null) {
-        // TODO: DOROBIT CHECKBOXY
-        checkboxMagic(oldIndex,newIndex);
-        console.log(oldIndex,newIndex, "si v IFE")
-        return ;
-        
+    if(holdingShift && lastIndex != null) {
+        highlightCheckboxesBetween(lastIndex,newIndex);
+        console.log(lastIndex,newIndex, "si v IFE")        
     }
-    oldIndex = newIndex;
+
+    lastIndex = newIndex;
     console.log(newIndex,event.target)
 }
 
-const checkboxMagic = (firstClicked,secondClicked) => {
-    checkboxArray.map(( checkbox,index ) => {
-        if(index > firstClicked && index < secondClicked) {
-            checkbox.checked = true;
+const highlightCheckboxesBetween = (firstClicked,secondClicked) => {
+    checkboxArray.map(( checkbox, index ) => {
+      const checkboxChecked = () => checkbox.checked = true;
+
+        if(index > firstClicked && index < secondClicked) 
+          checkboxChecked()
+        
+        if(index < firstClicked && index > secondClicked) {
+          checkboxChecked()
         }
     })
 }
 
-checkboxArray.forEach(item => item.addEventListener("click",func))
+checkboxArray.forEach(item => item.addEventListener("click",getCheckboxIndexes))
 
 console.log(checkboxArray)
 
