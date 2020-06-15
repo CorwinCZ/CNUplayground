@@ -3,6 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <title>Videos</title>
+  <style>
+      html, body {
+          background-color: #333;
+      }
+      ul.videos {
+          width: 300px;
+          font-size: 12px;
+          font-family: Arial, Helvetica, sans-serif;
+      }
+      ul.videos li {
+          list-style: none;
+          margin: 0 0 2px 0;
+          padding: 2px 20px;
+          position: relative;
+          background-color: #fff;
+      }
+      ul.videos li span {
+          position: absolute;
+          right: 20px;
+          text-align: right;
+      }
+      ul.videos div {
+          text-align: right;
+          padding: 5px 20px;
+          margin-top: 10px;
+          font-weight: bold;
+          background-color: #c3c3c3;
+          position: relative;
+      }
+      ul.videos div:before {
+          content: 'Total time';
+          position: absolute;
+          left: 20px;
+      }
+  </style>
 </head>
 <body>
   <ul class="videos">
@@ -184,78 +219,66 @@
 <script>
 
 const videoContainer = document.querySelector('.videos');
-const videoList = [...videoContainer.querySelectorAll('li')];
+const videoListHTML = videoContainer.querySelectorAll('li');
+const videoListAttributes = [...videoContainer.querySelectorAll('li')];
 
-const extractTime = (video) => {
+const extractTime = (video, index) => {
     timeAttribute = video.getAttribute("data-time");
     const videoTime = {
+        hours: 0,
         minutes: parseInt(timeAttribute.split(':')[0]),
         seconds: parseInt(timeAttribute.split(':')[1])
     };
+
+    showFormatedTime(videoTime, videoListHTML[index], document.createElement('span'));
     return videoTime;
 }
-// const countTime = (total, video) => {
-//     console.log('%c⧭ total.minutes ', 'color: #e5de73', total.minutes);
-//     return total.minutes += video.minutes;
-// }, {}
 
-const timeList = videoList.map( extractTime );
-console.log('%c⧭ timeList ', 'color: #00ff88', timeList);
-
-const result = timeList.reduce( (total, video) => {
-    console.log('%c⧭ video time ', 'color: #e5de73', video.minutes + ':' + video.seconds);
-    
+const countTime = (total, video) => {
+    // count seconds
     const countedSeconds = total.seconds + video.seconds;
+    
+    total.seconds = (countedSeconds % 60);
+    additionalMinute = Math.floor(countedSeconds / 60);
 
-    if(countedSeconds > 59) {
-        total.seconds = (countedSeconds % 60);
-        additional = Math.floor(countedSeconds / 60);
-    } else {
-        total.seconds = countedSeconds;
-        additional = 0;
-    }
-
+    // count minutes
     const countedMinutes = total.minutes + video.minutes + additionalMinute;
 
-    
-    if(countedMinutes > 59) {
-        total.minutes = (countedMinutes % 60);
-        additional = Math.floor(countedMinutes / 60);
-    } else {
-        total.minutes = countedMinutes;
-        additional = 0;
-    }
-
-
-
-    function countProperly(count, item) {
-        const sum = count.index + item.index;
-
-        const index = ["seconds", "minutes", "hours"]
-
-        if(sum > 59) {
-            count.index = (sum % 60);
-            additional = Math.floor(sum / 60);
-        } else {
-            count.index = sum;
-            additional = 0;
-        }
-        if(index === "seconds")
-        count.index = count.index + item.index + additional;
-        return count;
-    }
-    
-
+    total.minutes = (countedMinutes % 60);
+    additionalHour = Math.floor(countedMinutes / 60);
+   
+    // count hours
     total.hours = total.hours + video.hours + additionalHour;
+    console.log('%c⧭ total ', 'color: #ff6600', total);
 
-    console.log('%c⧭===== total time ', 'color: #364cd9', total.minutes + ':' + total.seconds);
     return total;
-    
-});
+}
+
+const totalVideoTime = videoListAttributes.map( extractTime ).reduce( countTime );
+
+showFormatedTime(totalVideoTime, videoContainer, document.createElement('div'));
 
 
 
 
+
+
+
+
+function showFormatedTime(time, container, addedElement) {
+    const hours = formatTime(time.hours);
+    const minutes = formatTime(time.minutes);
+    const seconds = formatTime(time.seconds);
+
+    addedElement.innerHTML = hours + ':' + minutes + ':' + seconds;
+    container.append(addedElement)
+}
+
+
+// prepend 0 to one-digit-number
+function formatTime(time) {
+    return time < 10 ? "0" + time : time;
+}
 
 
 </script>
