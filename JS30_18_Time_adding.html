@@ -222,6 +222,7 @@ const videoContainer = document.querySelector('.videos');
 const videoListHTML = videoContainer.querySelectorAll('li');
 const videoListAttributes = [...videoContainer.querySelectorAll('li')];
 
+// function for .map()
 const extractTime = (video, index) => {
     timeAttribute = video.getAttribute("data-time");
     const videoTime = {
@@ -234,7 +235,9 @@ const extractTime = (video, index) => {
     return videoTime;
 }
 
+// function for .reduce()
 const countTime = (total, video) => {
+
     // count seconds
     const countedSeconds = total.seconds + video.seconds;
     
@@ -254,7 +257,9 @@ const countTime = (total, video) => {
     return total;
 }
 
-const totalVideoTime = videoListAttributes.map( extractTime ).reduce( countTime );
+const totalVideoTime = videoListAttributes
+                        .map( extractTime )
+                        .reduce( countTime );
 
 showFormatedTime(totalVideoTime, videoContainer, document.createElement('div'));
 
@@ -265,13 +270,13 @@ showFormatedTime(totalVideoTime, videoContainer, document.createElement('div'));
 
 
 
-function showFormatedTime(time, container, addedElement) {
+function showFormatedTime(time, targetContainer, newElement) {
     const hours = formatTime(time.hours);
     const minutes = formatTime(time.minutes);
     const seconds = formatTime(time.seconds);
 
-    addedElement.innerHTML = hours + ':' + minutes + ':' + seconds;
-    container.append(addedElement)
+    newElement.innerHTML = hours + ':' + minutes + ':' + seconds;
+    targetContainer.append(newElement)
 }
 
 
