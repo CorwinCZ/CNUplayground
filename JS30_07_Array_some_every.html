@@ -29,11 +29,13 @@
     const currentYear = (new Date()).getFullYear();
     const isSomeoneOlder = people.some(person => currentYear - person.year >= 19);
 
-    console.log('%c⧭ isSomeoneOlder ? ', 'color: #ff0000', isSomeoneOlder);
+    console.log("1. Array.prototype.some() // is at least one person 19 or older?");
+    console.log('%c⧭ isSomeoneOlder ? (some)', 'color: #ff0000', isSomeoneOlder);
 
     // Array.prototype.every() // is everyone 19 or older?
     const areEverybodyOlder = people.every(person => currentYear - person.year >= 19);
-
+    
+    console.log("2. Array.prototype.every() // is everyone 19 or older?");
     console.log('%c⧭ areEverybodyOlder ? ', 'color: #00a3cc', areEverybodyOlder);
 
     // Array.prototype.find()
@@ -41,15 +43,19 @@
     // find the comment with the ID of 823423
     const searchedValue = 823423;
     const searchedComment = comments.find(comment => comment.id === searchedValue)
-
+    
+    console.log("3. find the comment with the ID of 823423");
     console.log('%c⧭ searchedComment ', 'color: #e50000', searchedComment);
 
     // Array.prototype.findIndex()
     // Find the comment with this ID
     // delete the comment with the ID of 823423
     const indexToRemove = comments.findIndex(comment => comment.id === searchedValue);
-    comments.splice(indexToRemove, 1);
-
+    // comments.splice(indexToRemove, 1);
+    delete comments[indexToRemove];
+    console.log('%c⧭ comments ', 'color: #00258c', comments);
+    
+    console.log("4. delete the comment with the ID of 823423");
     console.log('%c⧭ indexToRemove ', 'color: #917399', indexToRemove);
     console.log('%c⧭ new comments list: ', 'color: #d90000');
     console.table(comments);
