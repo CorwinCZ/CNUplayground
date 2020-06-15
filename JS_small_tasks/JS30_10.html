@@ -102,7 +102,7 @@ const checkboxArray = Array.from(divElements);
 
 let lastIndex = null;
 
-const getCheckboxIndexes = (event) => {
+const handleClick = (event) => {
     const newIndex = checkboxArray.findIndex(item => item === event.target) 
     const holdingShift = event.shiftKey;
     
@@ -117,24 +117,20 @@ const getCheckboxIndexes = (event) => {
 
 const highlightCheckboxesBetween = (firstClicked,secondClicked) => {
     checkboxArray.map(( checkbox, index ) => {
-      const checkboxChecked = () => checkbox.checked = true;
+      const checkCheckbox = () => checkbox.checked = true;
 
         if(index > firstClicked && index < secondClicked) 
-          checkboxChecked()
+          checkCheckbox()
         
         if(index < firstClicked && index > secondClicked) {
-          checkboxChecked()
+          checkCheckbox()
         }
     })
 }
 
-checkboxArray.forEach(item => item.addEventListener("click",getCheckboxIndexes))
+checkboxArray.forEach(item => item.addEventListener("click",handleClick))
 
 console.log(checkboxArray)
-
-
-
-
 </script>
 </body>
 </html>

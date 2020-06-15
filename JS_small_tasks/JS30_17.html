@@ -48,7 +48,7 @@
 <script>
 const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
 
-const deletePrefix = (item) => {
+const removePrefix = (item) => {
   if(item.includes('The ')) {
     item = item.split('The ')[1]
   }
@@ -63,8 +63,8 @@ const deletePrefix = (item) => {
   return item;
 }
 
-const list = bands.sort((a,b) => {
-  if(deletePrefix(a) > deletePrefix(b))
+const sortedList = bands.sort((a,b) => {
+  if(removePrefix(a) > removePrefix(b))
     return 1;
   else 
     return -1;
@@ -76,7 +76,7 @@ const list = bands.sort((a,b) => {
 }).join('');
 
 const ul = document.querySelector('#bands');
-ul.innerHTML = list;
+ul.innerHTML = sortedList;
 
 
 </script>
